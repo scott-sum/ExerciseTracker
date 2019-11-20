@@ -1,0 +1,48 @@
+// tools we need
+const express = require('express');
+const cors = require('cors');
+// mongoose helps connect to mongodb database
+const mongoose = require('mongoose');
+
+// so we can have env variables in .env file
+require('dotenv').config();
+
+// setting up server
+const app = express();
+const port = process.env.PORT || 5000;
+
+// cors middeware
+app.use(cors());
+
+// helps to parse json
+app.use(express.json());
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../mern-exercise-tracker/build"));
+}
+
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+);
+
+//dealing with updates to mongodb
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z");
+const connection = mongoose.connection;
+
+// what to do once connected to mongodb database
+connection.once('open', () => {
+    console.log("MongoDB database connection established successfully");
+})
+
+const exercisesRouter = require('./routes/exercises');
+const usersRouter = require('./routes/users');
+
+// whenever go to that url, it will load everything in the second parameter
+app.use('/exercises', exercisesRouter);
+app.use('/users', usersRouter);
+
+
+// starts listening and starts the server
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
+});
