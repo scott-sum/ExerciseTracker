@@ -17,12 +17,10 @@ app.use(cors());
 // helps to parse json
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../mern-exercise-tracker/build"));
+//const uri = process.env.ATLAS_URI;
+mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z", { 
+    useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
 }
-
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 );
 
 //dealing with updates to mongodb
@@ -30,9 +28,10 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedT
 const connection = mongoose.connection;
 
 // what to do once connected to mongodb database
-connection.once('open', () => {
+/*connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
+*/
 
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
@@ -41,6 +40,10 @@ const usersRouter = require('./routes/users');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../mern-exercise-tracker/build"));
+    
+}
 
 // starts listening and starts the server
 app.listen(port, () => {
