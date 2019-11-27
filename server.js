@@ -14,8 +14,6 @@ app.use(cors());
 // helps to parse json
 app.use(express.json());
 
-
-
 //dealing with updates to mongodb
 //mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z");
 const connection = mongoose.connection;
@@ -38,7 +36,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //const uri = process.env.ATLAS_URI;
-mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z", { 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku:mernstackapp2@ds029277.mlab.com:29277/heroku_8npb236z", { 
     useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
 }
 );
