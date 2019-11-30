@@ -18,12 +18,6 @@ app.use(express.json());
 //mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z");
 const connection = mongoose.connection;
 
-// what to do once connected to mongodb database
-/*connection.once('open', () => {
-    console.log("MongoDB database connection established successfully");
-})
-*/
-
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 
@@ -43,5 +37,5 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku:mernstackapp2@ds02
 
 // starts listening and starts the server
 app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}!`);
+    console.log(`Server is running on port: ${PORT}`);
 });
