@@ -29,6 +29,10 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("./client/build"));
 }
 
+app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client/build', 'client/build/index.html'));
+});
+
 //const uri = process.env.ATLAS_URI;
 mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku:mernstackapp2@ds029277.mlab.com:29277/heroku_8npb236z", { 
     useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
