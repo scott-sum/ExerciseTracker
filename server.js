@@ -8,14 +8,14 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const path = require("path")
+
 // cors middeware
 app.use(cors());
 
 // helps to parse json
 app.use(express.json());
 
-//dealing with updates to mongodb
-//mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds029277.mlab.com:29277/heroku_8npb236z");
 const connection = mongoose.connection;
 
 const exercisesRouter = require('./routes/exercises');
@@ -29,12 +29,15 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("./client/build"));
 }
 
+app.use(express.static(path.join(__dirname, "client", "build")))
+
 app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-//const uri = process.env.ATLAS_URI;
+
 mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku:mernstackapp2@ds029277.mlab.com:29277/heroku_8npb236z", { 
+    //dealing with updates to mongodb
     useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
 }
 );
