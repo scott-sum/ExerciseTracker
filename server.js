@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // setting up server
 const app = express();
-const port = process.env.PORT || 5000;
+export const port = process.env.PORT || 5000;
 const path = require("path")
 
 // cors middeware

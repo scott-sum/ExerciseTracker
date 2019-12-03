@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import port from './../../../server.js'
 
 export default class CreateUser extends Component {
 
@@ -36,7 +37,7 @@ export default class CreateUser extends Component {
         // connect backend to frontend
         // second parameter of axios statement is the body
         // 'user' is from users.js
-        axios.post('http://localhost:${process.env.PORT}/users/add', user)
+        axios.post('http://localhost:${port}/users/add', user)
             .then(res => console.log(res.data));
     
         // once the user enters a username, make the username box blank again, staying on the same page
