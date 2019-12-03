@@ -1,4 +1,4 @@
-// tools we need
+/*// tools we need
 const express = require('express');
 const cors = require('cors');
 // mongoose helps connect to mongodb database
@@ -47,4 +47,41 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds227
 // starts listening and starts the server
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
+});*/
+// Importing Modules
+const mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+// importing files
+const routes = require('./routes');
+
+// Define Global Variables
+const app = express();
+const log = console.log;
+const PORT = process.env.PORT || 5000; 
+
+
+
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://scott:mernstackapp1@ds227525.mlab.com:27525/heroku_wgczpk05', {
+    useNewUrlParser: true
+});
+
+// Configuration
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', routes);
+
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static( 'client/build' ));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+    });
+}
+
+app.listen(PORT, () => {
+    log(`Server is starting at PORT: ${PORT}`);
 });
