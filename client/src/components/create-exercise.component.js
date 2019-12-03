@@ -29,7 +29,7 @@ export default class CreateExercise extends Component {
   // React lifecycle method (automatically called before anything loads to page)
   componentDidMount() {
     // connect backend to frontend
-    axios.get(`http://localhost:${process.env.PORT}/users/`)
+    axios.get(`http://localhost:5000/users/`)
       .then(response => {
         //checking if at least one user in database
         if (response.data.length > 0) {
@@ -86,7 +86,7 @@ export default class CreateExercise extends Component {
     // connect backend to frontend
     // second parameter of axios statement is the body
     // 'exercise' is from exercises.js
-    axios.post(`http://localhost:${process.env.PORT}/exercises/add`, exercise)
+    axios.post(`http://localhost:5000/exercises/add`, exercise)
       .then(res => console.log(res.data));
 
       // once user submits an exercise go back to exercise list
