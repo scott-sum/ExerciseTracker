@@ -51,21 +51,20 @@ app.listen(port, () => {
 // Importing Modules
 const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
 
 // Define Global Variables
 const app = express();
-const log = console.log;
 const PORT = process.env.PORT || 5000; 
 
+// helps to parse json
+app.use(express.json());
+
 mongoose.connect( process.env.MONGODB_URI || 'mongodb://scott:mernstackapp1@ds227525.mlab.com:27525/heroku_wgczpk05', {
-    useNewUrlParser: true
+    useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
 });
 
 // Configuration
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 
@@ -82,5 +81,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => {
-    log(`Server is starting at PORT: ${PORT}`);
+    console.log(`Server is starting at PORT: ${PORT}`);
 });
