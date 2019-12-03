@@ -33,8 +33,6 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 
-
-
 mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds227525.mlab.com:27525/heroku_wgczpk05", { 
     //dealing with updates to mongodb
     useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
