@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 // setting up server
 const app = express();
 const port = process.env.PORT || 5000;
+
 const path = require("path")
 
 // cors middeware
@@ -22,25 +23,25 @@ const usersRouter = require('./routes/users');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build/"));
+mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds227525.mlab.com:27525/heroku_wgczpk05", { 
+    //dealing with updates to mongodb
+    useNewUrlParser: true, 
+    useCreateIndex: true, 
+    useUnifiedTopology: true 
+}
+);
 
-    app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static( 'client/build' ));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')); // relative path
     });
 }
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-
-mongoose.connect(process.env.MONGODB_URI || "mongodb://scott:mernstackapp1@ds227525.mlab.com:27525/heroku_wgczpk05", { 
-    //dealing with updates to mongodb
-    useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true 
-}
-);
-
 // starts listening and starts the server
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
-
