@@ -36,7 +36,7 @@ export default class CreateUser extends Component {
         // connect backend to frontend
         // second parameter of axios statement is the body
         // 'user' is from users.js
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('/users/add', user)
             .then(res => console.log(res.data));
     
         // once the user enters a username, make the username box blank again, staying on the same page
