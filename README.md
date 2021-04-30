@@ -1,5 +1,7 @@
 VIEW MY APP AT https://exertracker.herokuapp.com/
 
+Learning the MERN stack with help of freeCodeCamp tutorial
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
